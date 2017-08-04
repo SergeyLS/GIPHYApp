@@ -8,28 +8,40 @@
 
 import Foundation
 
+enum Result<T> {
+    case success(T)
+    case failure(Error?)
+}
 
 class NetworkManager {
     
     static func getFromAPI(completion: @escaping (Result<[[String : AnyObject]]>) -> Void) {
         
-        let stringURL = RecipepuppyConfig.DefaultURL
-        
-        let url = URL(string: stringURL)!
+        let url = APIConfig.searchURL()
         
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         
         let session = URLSession(configuration: .default)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let data = data,
-                let dataDictionary = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String : Any],
-                let popularsRep = dataDictionary["results"] as? [[String : AnyObject]]
-            {
-                completion(Result.success(popularsRep))
-                
-            } else {
+            
+            if error != nil {
                 completion(Result.failure(error!))
             }
+        
+            
+            guard let data = data else {
+                print("Error: [NetworkManager] - getFromAPI, data = nil")
+                return completion(Result.failure(error))}
+             guard let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
+                print("Error: [NetworkManager] - getFromAPI, dataDictionary = nil")
+                return completion(Result.failure(error))}
+            guard let rezultAPI = dataDictionary?["data"] as? [[String : AnyObject]] else {
+                print("Error: [NetworkManager] - getFromAPI, dataDictionary = rezultAPI")
+                return completion(Result.failure(error))}
+            
+            
+            completion(Result.success(rezultAPI))
+            
             
         }
         task.resume()

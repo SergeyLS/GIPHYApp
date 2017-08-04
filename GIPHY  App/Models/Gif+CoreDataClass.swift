@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 public class Gif: NSManagedObject {
 
     //==================================================
@@ -22,19 +21,57 @@ public class Gif: NSManagedObject {
     //==================================================
     // MARK: - Initializers
     //==================================================
-    
-    class func entity(dictionary: NSDictionary, context: NSManagedObjectContext) -> Gif? {
-        guard let name = dictionary["name"] as? String
-            else {
+    convenience init?(dictionary: NSDictionary){
+        guard let tempEntity = NSEntityDescription.entity(forEntityName: Gif.type, in: CoreDataManager.shared.viewContext) else {
+            fatalError("Could not initialize \(Gif.type)")
+            return nil
+        }
+        self.init(entity: tempEntity, insertInto: CoreDataManager.shared.viewContext)
+        
+        guard let id = dictionary["id"] as? String,
+              let type = dictionary["type"] as? String
+              else {
                 return nil
         }
-        let resultEntity = Gif(context: context)
         
-        resultEntity.name = name
         
-        print("add \(type): " + name)
+        self.id = id
+        self.type = type
         
-        return resultEntity;
+        //name 
+         if  let slug = dictionary["slug"] as? String {
+            var newString = slug.replacingOccurrences(of: "-"+id, with: "", options: .literal, range: nil)
+            newString = newString.replacingOccurrences(of: "-", with: ", ", options: .literal, range: nil)
+            self.name = newString
+        } else {
+            print("Error: [Gif] - pathSmall ")
+        }
+        
+        
+        //small
+        if  let images = dictionary["images"] as? [String : Any],
+            let fixed_height_small = images["fixed_height_small"] as? [String : Any],
+            let urlString = fixed_height_small["url"] as? String {
+            
+            self.pathSmall = urlString
+            
+        } else {
+            print("Error: [Gif] - pathSmall ")
+        }
+        
+        //original
+        if  let images = dictionary["images"] as? [String : Any],
+            let original = images["original"] as? [String : Any],
+            let urlString = original["url"] as? String {
+            
+            self.pathOriginal = urlString
+            
+        } else {
+            print("Error: [Gif] - pathOriginal ")
+        }
+
+        
+        print("add \(Gif.type): " + id)
     }
 
     

@@ -7,7 +7,40 @@
 //
 
 import UIKit
+import SwiftyGif
 
 class CollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var imageUI: UIImageView!
+    @IBOutlet weak var indicatorUI: UIActivityIndicatorView!
+    @IBOutlet weak var nameUI: UILabel!
+    
+    let gifManager = SwiftyGifManager(memoryLimit:100)
+    
+    func update(image: UIImage?, name: String = "") {
+        if let imageToDisplay = image {
+            indicatorUI.stopAnimating()
+            imageUI.setGifImage(imageToDisplay, manager: self.gifManager, loopCount: -1)
+            nameUI.text = name
+        } else {
+            indicatorUI.startAnimating()
+            imageUI.image = nil
+            nameUI.text = nil
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        update(image: nil)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        update(image: nil)
+    }
+    
+
     
 }
