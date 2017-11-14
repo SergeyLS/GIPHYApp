@@ -99,13 +99,17 @@ class GifManager {
     
     
     
-    static func getGifDataOriginal(gif: Gif, completion: @escaping (_ dataGif: Data) -> Void)  {
+    static func getGifDataOriginal(gif: Gif?, completion: @escaping (_ dataGif: Data) -> Void)  {
+
+        guard let gif = gif else {
+            completion(Data())
+            return
+        }
         
         if let fotoGif = gif.dataGifOriginal
         {
             completion(fotoGif)
         } else {
-            
             if let path = gif.pathOriginal,
                 let url = URL(string: path)
             {

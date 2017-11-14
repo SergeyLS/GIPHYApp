@@ -61,6 +61,7 @@ class CollectionViewController: BaseViewController {
     //==================================================
       func loadData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         GifManager.getFromAPI {
             DispatchQueue.main.async {
                UIApplication.shared.isNetworkActivityIndicatorVisible = false

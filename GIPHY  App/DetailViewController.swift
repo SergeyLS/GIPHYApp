@@ -15,26 +15,27 @@ class DetailViewController: BaseViewController {
     @IBOutlet weak var indicatorUI: UIActivityIndicatorView!
     
     
-    let gifManager = SwiftyGifManager(memoryLimit:100)
+    var gifManager = SwiftyGifManager(memoryLimit:100)
     
     var gif: Gif?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if gif == nil {
-            return
-        }
         
-        
-        DispatchQueue.main.async {
-            GifManager.getGifDataOriginal(gif: self.gif!) { (dataGif) in
+        GifManager.getGifDataOriginal(gif: gif) { [weak self] (dataGif) in
+            
+            guard let gifManager = self?.gifManager else {
+                     return
+            }
+            
+            DispatchQueue.main.async {
                 let gifImage = UIImage(gifData: dataGif)
-                self.imageUI.setGifImage(gifImage, manager: self.gifManager, loopCount: -1)
-                self.indicatorUI.stopAnimating()
+                self?.imageUI.setGifImage(gifImage, manager: gifManager, loopCount: -1)
+                self?.indicatorUI.stopAnimating()
             }
         }
-         
+        
         
     }
     
