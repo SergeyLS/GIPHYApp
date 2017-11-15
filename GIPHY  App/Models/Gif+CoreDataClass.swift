@@ -21,12 +21,12 @@ public class Gif: NSManagedObject {
     //==================================================
     // MARK: - Initializers
     //==================================================
-    convenience init?(dictionary: NSDictionary){
-        guard let tempEntity = NSEntityDescription.entity(forEntityName: Gif.type, in: CoreDataManager.shared.viewContext) else {
+    convenience init?(dictionary: NSDictionary, moc: NSManagedObjectContext){
+        guard let tempEntity = NSEntityDescription.entity(forEntityName: Gif.type, in: moc) else {
             fatalError("Could not initialize \(Gif.type)")
             return nil
         }
-        self.init(entity: tempEntity, insertInto: CoreDataManager.shared.viewContext)
+        self.init(entity: tempEntity, insertInto: moc)
         
         guard let id = dictionary["id"] as? String,
               let type = dictionary["type"] as? String

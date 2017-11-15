@@ -30,8 +30,8 @@ class GifManager {
         NetworkManager.getFromAPI() { result in
             switch result {
             case .success(let resultDict):
-                let moc = CoreDataManager.shared.newBackgroundContext
-                moc.performAndWait{
+//                let moc = CoreDataManager.shared.newBackgroundContext
+//                moc.performAndWait{
                     for  element in resultDict {
                         guard
                             let id = element["id"] as? String
@@ -48,7 +48,7 @@ class GifManager {
                             // New
                             
                             
-                            guard let _ = Gif(dictionary: element as NSDictionary)   else {
+                            guard let _ = Gif(dictionary: element as NSDictionary, moc: CoreDataManager.shared.viewContext)   else {
                                 print("Error: Could not create a new Gif from API.")
                                 continue
                             }
@@ -57,9 +57,9 @@ class GifManager {
                         
                     } //for  element in popularDict
                     
-                    CoreDataManager.shared.save(context: moc)
+                    CoreDataManager.shared.saveContext()
                     completion()
-                }
+                //}
                 
             case .failure(_):
                 completion()
@@ -71,11 +71,9 @@ class GifManager {
     
     static func getGifDataSmall(gif: Gif, completion: @escaping (_ dataGif: Data) -> Void)  {
         
-        if let fotoGif = gif.dataGifSmall
-        {
+        if let fotoGif = gif.dataGifSmall  {
              completion(fotoGif)
         } else {
- 
             if let path = gif.pathSmall,
                 let url = URL(string: path)
             {

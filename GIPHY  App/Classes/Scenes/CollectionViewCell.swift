@@ -38,7 +38,9 @@ class CollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        update(image: nil)
+        imageUI.image = nil
+        nameUI.text = nil
+        //update(image: nil)
     }
     
 

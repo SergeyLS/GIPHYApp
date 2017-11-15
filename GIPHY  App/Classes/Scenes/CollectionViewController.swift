@@ -11,7 +11,7 @@ import CoreData
 import SwiftyGif
 
 class CollectionViewController: BaseViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBarUI: UISearchBar!
     
@@ -35,10 +35,10 @@ class CollectionViewController: BaseViewController {
         //collectionView
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        
         //search
-         searchBarUI.delegate = self
-  
+        searchBarUI.delegate = self
+        
         //fetchResultController
         fetchResultController.delegate = self
         do {
@@ -46,10 +46,10 @@ class CollectionViewController: BaseViewController {
         } catch {
             print(error)
         }
-
+        
         loadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,17 +59,17 @@ class CollectionViewController: BaseViewController {
     //==================================================
     // MARK: - load
     //==================================================
-      func loadData() {
+    func loadData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         GifManager.getFromAPI {
             DispatchQueue.main.async {
-               UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         }
         
     }
-
+    
     
     //==================================================
     // MARK: - Navigation
@@ -82,7 +82,7 @@ class CollectionViewController: BaseViewController {
         }
         
     }
-
+    
 }
 
 
@@ -113,16 +113,13 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
         let gif = fetchResultController.object(at: indexPath) 
         cell.update(image: nil)
         
-         DispatchQueue.main.async {
-            GifManager.getGifDataSmall(gif: gif) { (dataGif) in
-                
+        
+        GifManager.getGifDataSmall(gif: gif) { (dataGif) in
+            DispatchQueue.main.async {
                 let gifImage = UIImage(gifData: dataGif)
-                 cell.update(image: gifImage, name: gif.name!)
-                
+                cell.update(image: gifImage, name: gif.name!)
             }
         }
-
-        
         return cell
     }
     
@@ -130,7 +127,7 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gif = fetchResultController.object(at: indexPath)
-        self.performSegue(withIdentifier: "detailGif", sender: gif)
+        performSegue(withIdentifier: "detailGif", sender: gif)
     }
 }
 
@@ -140,7 +137,22 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
 //==================================================
 extension CollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        //print("[CollectionViewController] controllerDidChangeContent")
         //collectionView.reloadData()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        //print("[CollectionViewController] reloadData: controller:didChange:atSectionIndex:for")
+        switch type {
+        case .insert:
+            collectionView.insertSections(IndexSet(integer: sectionIndex))
+        case .delete:
+            collectionView.deleteSections(IndexSet(integer: sectionIndex))
+        case .move:
+            break
+        case .update:
+            break
+        }
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -156,7 +168,8 @@ extension CollectionViewController: NSFetchedResultsControllerDelegate {
             collectionView.moveItem(at: indexPath!, to: newIndexPath!)
         }
     }
-
+    
+    
 }
 
 
@@ -180,7 +193,7 @@ extension CollectionViewController: UISearchBarDelegate {
         }
         collectionView.reloadData()
         
-
+        
     }
     
     
