@@ -19,9 +19,10 @@
 		F761AA861FBC374000F88B63 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F761AA851FBC374000F88B63 /* BaseViewController.swift */; };
 		F761AA8A1FBC381300F88B63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F761AA881FBC381300F88B63 /* LaunchScreen.storyboard */; };
 		F761AA8B1FBC381300F88B63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F761AA891FBC381300F88B63 /* Main.storyboard */; };
+		F761AA971FBC487500F88B63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F761AA951FBC487500F88B63 /* Assets.xcassets */; };
+		F761AA981FBC487500F88B63 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F761AA961FBC487500F88B63 /* Info.plist */; };
 		F76B3D4F1F1BEDEA00EE6981 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76B3D4E1F1BEDEA00EE6981 /* CollectionViewCell.swift */; };
 		F7CFDFEE1F1B7F970049CE8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CFDFED1F1B7F970049CE8E /* AppDelegate.swift */; };
-		F7CFDFF51F1B7F970049CE8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7CFDFF41F1B7F970049CE8E /* Assets.xcassets */; };
 		F7CFE00E1F1B8AA50049CE8E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CFE00D1F1B8AA50049CE8E /* CollectionViewController.swift */; };
 		F7CFE0101F1B8ACD0049CE8E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CFE00F1F1B8ACD0049CE8E /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,11 +45,11 @@
 		F761AA851FBC374000F88B63 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F761AA881FBC381300F88B63 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F761AA891FBC381300F88B63 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F761AA951FBC487500F88B63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F761AA961FBC487500F88B63 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F76B3D4E1F1BEDEA00EE6981 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F7CFDFEA1F1B7F970049CE8E /* GIPHYApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GIPHYApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7CFDFED1F1B7F970049CE8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F7CFDFF41F1B7F970049CE8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F7CFDFF91F1B7F970049CE8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7CFE00D1F1B8AA50049CE8E /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		F7CFE00F1F1B8ACD0049CE8E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,10 +95,11 @@
 		F761AA8D1FBC383B00F88B63 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F7CFDFF41F1B7F970049CE8E /* Assets.xcassets */,
-				F7CFDFF91F1B7F970049CE8E /* Info.plist */,
+				F761AA951FBC487500F88B63 /* Assets.xcassets */,
+				F761AA961FBC487500F88B63 /* Info.plist */,
 			);
-			path = Resources;
+			name = Resources;
+			path = "GIPHY  App/Resources";
 			sourceTree = "<group>";
 		};
 		F761AA8F1FBC388900F88B63 /* Classes */ = {
@@ -265,9 +267,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F761AA981FBC487500F88B63 /* Info.plist in Resources */,
 				F761AA8B1FBC381300F88B63 /* Main.storyboard in Resources */,
+				F761AA971FBC487500F88B63 /* Assets.xcassets in Resources */,
 				F761AA8A1FBC381300F88B63 /* LaunchScreen.storyboard in Resources */,
-				F7CFDFF51F1B7F970049CE8E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UR2UCZHHPB;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/GIPHY  App/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SergeyLeskov.GIPHYApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -479,7 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UR2UCZHHPB;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/GIPHY  App/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SergeyLeskov.GIPHYApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
